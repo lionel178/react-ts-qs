@@ -1,0 +1,28 @@
+#Dependency directories
+node_modules/
+
+# output directories
+dist/
+build/
+
+# Typescript v1 declaration files
+typings/
+
+# Optional npm cache directory
+.npm
+
+# Optional yarn cache directory
+.yarn
+
+# Optional eslint cache
+.eslitcache
+
+#dotenv environment variables file
+.environment
+/.vs
+.DS_Store
+.idea
+debug.log
+.vscode/settings.json
+*/.vscode/
+TODO.md

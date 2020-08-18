@@ -1,0 +1,27 @@
+{
+  "name": "react-ts-qs",
+  "version": "1.0.0",
+  "description": "Quickly create react + typescript project development environment and scaffold for developing npm package components",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lionel178/react-ts-qs.git"
+  },
+  "keywords": [
+    "react-project",
+    "typescript-project",
+    "react-typescript",
+    "teact-ts-quick-starter"
+  ],
+  "author": {
+    "name": "Liuc",
+    "url": "https://github.com/lionel178",
+    "email": "lionel_lc@163.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lionel178/react-ts-qs/issues"
+  },
+  "homepage": "https://github.com/lionel178/react-ts-qs#readme"
+}

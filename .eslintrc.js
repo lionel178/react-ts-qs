@@ -15,7 +15,6 @@ module.exports = {
     'plugin:unicorn/recommended',
     'plugin:promise/recommended',
     'plugin:@typescript-eslint/recommended',
-    // other configs ...
     'prettier',
     'prettier/@typescript-eslint',
     'prettier/react',
@@ -29,6 +28,7 @@ module.exports = {
     ecmaVersion: 11,
     sourceType: 'module',
   },
+  plugins: ['react', 'unicorn', 'promise', '@typescript-eslint'],
   settings: {
     'import/resolver': {
       node: {
@@ -36,7 +36,6 @@ module.exports = {
       },
     },
   },
-  plugins: ['react', 'unicorn', 'promise', '@typescript-eslint'],
   rules: {
     'import/extensions': [
       ERROR,
@@ -48,5 +47,12 @@ module.exports = {
         js: 'never',
       },
     ],
+    'import/no-extraneous-dependencies': [ERROR, { devDependencies: true }],
+
+    'unicorn/prevent-abbreviations': OFF,
+
+    '@typescript-eslint/no-var-requires': OFF,
+
+    'global-require': OFF,
   },
 }

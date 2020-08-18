@@ -51,11 +51,28 @@ module.exports = {
     'import/no-extraneous-dependencies': [ERROR, { devDependencies: true }],
 
     'unicorn/prevent-abbreviations': OFF,
+    'unicorn/filename-case': [
+      ERROR,
+      {
+        cases: {
+          // 中划线
+          kebabCase: true,
+          // 小驼峰
+          camelCase: true,
+          // 下划线
+          snakeCase: false,
+          // 大驼峰
+          pascalCase: true,
+        },
+      },
+    ],
 
     '@typescript-eslint/no-var-requires': OFF,
+    '@typescript-eslint/explicit-module-boundary-types': OFF,
 
     'react/jsx-filename-extension': [ERROR, { extensions: ['.tsx', 'ts', '.jsx', 'js'] }],
 
+    'no-console': OFF,
     'global-require': OFF,
   },
 }

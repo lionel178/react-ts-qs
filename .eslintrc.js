@@ -34,6 +34,7 @@ module.exports = {
       node: {
         extensions: ['.tsx', '.ts', '.js', '.json'],
       },
+      typescript: {},
     },
   },
   rules: {
@@ -52,6 +53,8 @@ module.exports = {
     'unicorn/prevent-abbreviations': OFF,
 
     '@typescript-eslint/no-var-requires': OFF,
+
+    'react/jsx-filename-extension': [ERROR, { extensions: ['.tsx', 'ts', '.jsx', 'js'] }],
 
     'global-require': OFF,
   },

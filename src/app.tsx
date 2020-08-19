@@ -1,22 +1,27 @@
-import React, { Suspense, useState } from 'react'
+import React from 'react'
+import { HashRouter as Router, Route } from 'react-router-dom'
+import Loadable from 'react-loadable'
 
-const ComputedOne = React.lazy(() => import('Components/ComputedOne'))
-const ComputedTwo = React.lazy(() => import('Components/ComputedTwo'))
-
-function App() {
-  const [showTwo, setShowTwo] = useState<boolean>(false)
-
-  return (
-    <div className="app">
-      <Suspense fallback={<div>Loading...</div>}>
-        <ComputedOne a={1} b={2} />
-        {showTwo && <ComputedTwo a={3} b={4} />}
-        <button type="button" onClick={() => setShowTwo(true)}>
-          显示Two
-        </button>
-      </Suspense>
-    </div>
-  )
+const Loading = () => {
+  return <div>1</div>
 }
 
-export default App
+const Page1 = Loadable({
+  loader: () => import(/* webpackChunkName: "pages1" */ './pages/pages1'),
+  loading: Loading,
+})
+
+const Page2 = Loadable({
+  loader: () => import(/* webpackChunkName: "pages2" */ './pages/pages2'),
+  loading: Loading,
+})
+
+const AppRouter = () => (
+  <Router>
+    <Route path="/" exact component={Page1} />
+    <Route path="/page1" exact component={Page1} />
+    <Route path="/page2" exact component={Page2} />
+  </Router>
+)
+
+export default AppRouter

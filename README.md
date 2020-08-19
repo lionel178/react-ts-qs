@@ -79,3 +79,4 @@
 
 1. 增加 thread-loader
 2. dev 环境默认端口号是 本机网络 ip
+3. 配置 react-router

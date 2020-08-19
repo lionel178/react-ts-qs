@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const { merge } = require('webpack-merge')
 const common = require('./webpack.common')
 const { SERVER_HOST, SERVER_PORT } = require('../constant')
+
 const proxySetting = require('../../src/setProxy.js')
 
 module.exports = merge(common, {

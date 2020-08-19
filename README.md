@@ -74,3 +74,8 @@
 4. 添加包注释 √
 5. tree-shaking √
 6. 打包分析 √
+
+## 个人扩展
+
+1. 增加 thread-loader
+2. dev 环境默认端口号是 本机网络 ip

@@ -1,15 +1,15 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CopyPlugin = require('copy-webpack-plugin')
+const os = require('os')
+const { resolve } = require('path')
 const WebpackBar = require('webpackbar')
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
-const { resolve } = require('path')
-const { isDev, PROJECT_PATH } = require('../constant')
+const { isDev, PROJECT_PATH, IS_OPEN_HARD_SOURCE } = require('../constant')
 
 const getCssLoaders = (importLoaders) => [
   isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
@@ -43,11 +43,11 @@ const getCssLoaders = (importLoaders) => [
 ]
 module.exports = {
   entry: {
-    app: path.resolve(PROJECT_PATH, './src/index.tsx'),
+    app: resolve(PROJECT_PATH, './src/index.tsx'),
   },
   output: {
     filename: `js/[name]${isDev ? '' : '.[hash:8]'}.js`,
-    path: path.resolve(PROJECT_PATH, './dist'),
+    path: resolve(PROJECT_PATH, './dist'),
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.json'],
@@ -61,8 +61,23 @@ module.exports = {
     rules: [
       {
         test: /\.(tsx?|js)$/,
-        loader: 'babel-loader',
-        options: { cacheDirectory: true },
+        use: [
+          {
+            loader: 'thread-loader',
+            options: {
+              workers: os.cpus().length - 1,
+              workerParallelJobs: 50,
+              workerNodeArgs: ['--max-old-space-size=1024'],
+              poolRespawn: false,
+              poolTimeout: 4000,
+              name: 'my-pool',
+            },
+          },
+          {
+            loader: 'babel-loader',
+            options: { cacheDirectory: true },
+          },
+        ],
         exclude: /node_modules/,
       },
       {
@@ -149,14 +164,14 @@ module.exports = {
         configFile: resolve(PROJECT_PATH, './tsconfig.json'),
       },
     }),
-    new HardSourceWebpackPlugin(),
+    IS_OPEN_HARD_SOURCE && new HardSourceWebpackPlugin(),
     !isDev &&
       new MiniCssExtractPlugin({
         filename: 'css/[name].[contenthash:8].css',
         chunkFilename: 'css/[name].[contenthash:8].css',
         ignoreOrder: false,
       }),
-  ],
+  ].filter(Boolean),
   externals: {
     react: 'React',
     'react-dom': 'ReactDOM',

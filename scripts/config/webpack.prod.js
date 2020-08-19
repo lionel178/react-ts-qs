@@ -1,9 +1,10 @@
-const { resolve } = require('path')
-const webpack = require('webpack')
 const glob = require('glob')
-const PurgeCSSPlugin = require('purgecss-webpack-plugin')
+const webpack = require('webpack')
+const { resolve } = require('path')
 const { merge } = require('webpack-merge')
+const PurgeCSSPlugin = require('purgecss-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { PROJECT_PATH } = require('../constant')
 const common = require('./webpack.common.js')
 
@@ -18,6 +19,11 @@ module.exports = merge(common, {
     new webpack.BannerPlugin({
       raw: true,
       banner: '/** @preserve Powered by react-ts-qs (https://github.com/lionel178/react-ts-qs) */',
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].[contenthash:8].css',
+      chunkFilename: 'css/[name].[contenthash:8].css',
+      ignoreOrder: false,
     }),
   ],
 })
